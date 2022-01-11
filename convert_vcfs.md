@@ -1,4 +1,4 @@
-## Convert to plink, and filter by call rate. __
+## Convert to plink, and filter by call rate. 
 
 ```
 for i in *vcf;do
@@ -12,7 +12,7 @@ for i in *vcf;do
                 done;
 ```
 
-## Convert back to vcf (I couldn't get the input file names right so they're written in full) . ___ 
+## Convert back to vcf 
 
 ```
 for i in hclone_lhm_only_dbSNP_biSNP dgrp2_dm6_dbSNP; do
@@ -24,7 +24,7 @@ for i in hclone_lhm_only_dbSNP_biSNP dgrp2_dm6_dbSNP; do
             done;
 ```
 
-## Combine the two vcfs. ___
+## Combine the two vcfs
 
 ```
 java -jar ~/SOFTWARE/GenomeAnalysisTK-3.4-46/GenomeAnalysisTK.jar \
