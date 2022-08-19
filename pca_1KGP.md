@@ -1,4 +1,4 @@
-## 1 Download the files as VCF.gz (and tab-indices)
+## 1. Download the files as VCF.gz (and tab-indices)
 ```
 prefix="ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr" ;
 
@@ -9,12 +9,12 @@ for chr in {1..22}; do
 done
 ```
 
-## 2 Download 1000 Genomes PED file
+## 2. Download 1000 Genomes PED file
 ```
 wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/working/20130606_sample_info/20130606_g1k.ped ;
 ```
 
-## 3 Download the GRCh37 / hg19 reference genome
+## 3. Download the GRCh37 / hg19 reference genome
 ```
 wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.gz ;
 
@@ -28,7 +28,7 @@ gunzip human_g1k_v37.fasta.gz ;
 curl ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.gz -O human_g1k_v37.fasta.gz
 ```
 
-## 4 Convert the 1000 Genomes files to BCF
+## 4. Convert the 1000 Genomes files to BCF
 
 Ensure that multi-allelic calls are split and that indels are left-aligned compared to reference genome (1st pipe)
 Sets the ID field to a unique value: CHROM:POS:REF:ALT (2nd pipe)
@@ -49,7 +49,7 @@ for chr in {1..22}; do
 done
 ```
 
-## 5 Convert the BCF files to PLINK format
+## 5. Convert the BCF files to PLINK format
 
 ```
 for chr in {1..22}; do
@@ -65,10 +65,10 @@ for chr in {1..22}; do
 done
 ```
 
-## 6, Exclude variants not on the coding strand
+## 6. Exclude variants not on the coding strand
 NB - This step is only for microarray studies where the probes may only target one strand or the other (sense or non-sense)
 
-## 7, Prune variants from each chromosome
+## 7. Prune variants from each chromosome
 
 ```
 --maf 0.10, only retain SNPs with MAF greater than 10%
@@ -92,7 +92,7 @@ for chr in {1..22}; do
 done
 ```
 
-## 8, Get a list of all PLINK files
+## 8. Get a list of all PLINK files
 
 ```
 find . -name "*.bim" | grep -e "Pruned" > ForMerge.list ;
@@ -100,7 +100,7 @@ find . -name "*.bim" | grep -e "Pruned" > ForMerge.list ;
 sed -i 's/.bim//g' ForMerge.list ;
 ```
 
-## 9, Merge all projects into a single PLINK file
+## 9. Merge all projects into a single PLINK file
 
 ```
 plink --merge-list ForMerge.list --out Merge ;
@@ -114,13 +114,13 @@ merge the 1000 Genomes data with your own data
 proceed to Step 10
 Depending on its size, your own dataset may be divided by chromosome; so, you may have to do some pre-processing before aligning to 1000 Genomes. Either way, the population specific markers will be defined by just the 1000 Genomes dataset (Step 7). If your dataset is microarray, you'll have to pre-filter it for coding (plus / +) strand variants (Step 6).
 
-## 10 Perform PCA
+## 10. Perform PCA
 
 ```
 plink --bfile Merge --pca
 ```
 
-## 11, Generate plots in R
+## 11. Generate plots in R
 ```
 R
 
